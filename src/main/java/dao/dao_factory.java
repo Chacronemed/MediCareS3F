@@ -51,4 +51,8 @@ public class dao_factory {
     public rdv_dao get_rdv_dao() {
     	return new rdv_dao_impl(this);
     }
+
+    public prescription_dao get_prescription_dao() {
+        return new prescription_dao_impl(this);
+    }
 }
