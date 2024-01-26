@@ -34,7 +34,7 @@ public class connexion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/connexion.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/signin/connexion.jsp");
         dispatcher.forward(request, response);
 	}
 
@@ -65,7 +65,7 @@ public class connexion extends HttpServlet {
         } else {
             // Afficher un message d'erreur si la connexion échoue
             request.setAttribute("erreurMessage", "Adresse e-mail ou mot de passe incorrect");
-            request.getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/signin/connexion.jsp").forward(request, response);
         }
     }
 }
