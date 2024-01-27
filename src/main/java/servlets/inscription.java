@@ -114,7 +114,7 @@ public class inscription extends HttpServlet {
         }
         
         if (id_utilisateur!=-1) {
-        	request.getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+        	request.getRequestDispatcher("/WEB-INF/signin/connexion.jsp").forward(request, response);
         }
         else {
         	// Définir un attribut de la requête avec le message d'erreur

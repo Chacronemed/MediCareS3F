@@ -59,7 +59,7 @@
         <!-- Champs spécifiques pour le type "Patient" -->
         <div id="champsPatient" class="input-box" style="display: none;">
             <label for="contact_urgence" class="form-label">Contact d'urgence:</label>
-            <input type="text" name="contact_urgence" class="input-field">
+            <input type="text" name="numTel" class="input-field">
         </div>
         <div><%-- Afficher le message d'erreur s'il y en a un --%>
             <c:if test="${not empty requestScope.erreurMessage}">
@@ -70,12 +70,12 @@
             <label><input type="checkbox">Remember Me</label>
             <a href="#">Forgot Password</a>
         </div>
-        <button type="submit" class="btn" style="color: #f3f3f3">Login</button>
+        <button type="submit" class="btn" style="color: #f3f3f3">Register</button>
         <div class="register-link">
-            <p>Already have an account? <a href="connexion">Register</a></p>
+            <p>Already have an account? <a href="connexion">Log In</a></p>
         </div>
     </form>
 </div>
-<script src="register.js"></script>
+<script src="assets/JS/register.js"></script>
 </body>
 </html>
