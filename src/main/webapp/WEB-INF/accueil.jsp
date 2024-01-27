@@ -7,10 +7,10 @@
     <title>Profil Utilisateur</title>
 </head>
 <body>
-
+<%@include file="/WEB-INF/dashboard.jsp" %>
 <c:if test="${sessionScope.utilisateur ne null}">
     <h2>Profil de ${sessionScope.utilisateur.prenom} ${sessionScope.utilisateur.nom}</h2>
-    
+    <p> total ${sessionScope.utilisateur.id_utilisateur}</p>
     <p><strong>Nom:</strong> ${sessionScope.utilisateur.nom}</p>
     <p><strong>Prénom:</strong> ${sessionScope.utilisateur.prenom}</p>
     <p><strong>Email:</strong> ${sessionScope.utilisateur.email}</p>
