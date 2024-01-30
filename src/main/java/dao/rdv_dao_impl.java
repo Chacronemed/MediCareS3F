@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -43,7 +44,51 @@ public class rdv_dao_impl implements rdv_dao{
         }
 	}
 	
-	
+	public List<rdv> getTodayMedcineRDV(int id_medcin){
+		List<rdv> rendezVousAujourdhui = new ArrayList<>();
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		java.sql.Date today_date = new java.sql.Date(new java.util.Date().getTime());
+		System.out.println("############################"+today_date);
+		System.out.println("Executing query with date: " + today_date.toString());
+
+		try {
+			connexion = dao_factory.getConnection();
+
+			String query = "SELECT * FROM rendez_vous WHERE id_med = ? AND date_rdv = ?;";
+
+			preparedStatement = connexion.prepareStatement(query);
+			preparedStatement.setInt(	1, id_medcin);
+			preparedStatement.setString(2, today_date.toString() );
+			resultSet = preparedStatement.executeQuery();
+			if (!resultSet.isBeforeFirst()) {
+				System.out.println("No data found for today's date and given medecin ID: " + id_medcin);
+			} else {
+			while (resultSet.next()) {
+				rdv rdv = new rdv();
+				rdv.setId_rdv(resultSet.getInt("id_rdv"));
+				rdv.setId_patient(resultSet.getInt("id_patient"));
+				rdv.setId_med(id_medcin);
+				rdv.setDate_debut(resultSet.getDate("date_debut"));
+				rdv.setDate_fin(resultSet.getDate("date_fin"));
+				rdv.setHeure_debut(resultSet.getString("heure_debut"));
+				rdv.setHeure_fin(resultSet.getString("heure_fin"));
+				rdv.setDate_rdv(resultSet.getDate("date_rdv"));
+				rdv.setHeure(resultSet.getString("heure"));
+				rdv.setRemarque(resultSet.getString("remarque"));
+				rendezVousAujourdhui.add(rdv);
+				rdv.toString();
+			}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		}
+
+		return rendezVousAujourdhui;
+	}
 	
 	
 	public List<rdv> getRdvMedecin(int id_medecin) {
@@ -55,9 +100,9 @@ public class rdv_dao_impl implements rdv_dao{
 	    try {
 	        connexion = dao_factory.getConnection();
 	        
-	        String query = "SELECT * FROM rendez_vous WHERE id_med = ?";
+	        String query = "SELECT * FROM rendez_vous WHERE id_med = ? ";
 	        preparedStatement = connexion.prepareStatement(query);
-	        preparedStatement.setInt(1, id_medecin);
+	        preparedStatement.setInt(	1, id_medecin);
 	        resultSet = preparedStatement.executeQuery();
 	        while (resultSet.next()) {
 	            rdv rdv = new rdv();

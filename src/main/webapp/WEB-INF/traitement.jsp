@@ -27,6 +27,8 @@
     </script>
 </head>
 <body>
+<%@include file="/WEB-INF/navbar.jsp" %>
+
 <h2>Ajouter Prescription Médicale</h2>
 <form action="traitement" method="post">
     <!-- Informations sur la maladie -->

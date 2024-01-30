@@ -3,6 +3,8 @@ package dao;
 import beans.utilisateur;
 import beans.patient;
 import beans.medecin;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -154,6 +156,11 @@ public class utilisateur_dao_impl implements utilisateur_dao{
 
 	    return null;
 	}
-
+	//donne la sesion de l'utilisateur connecté
+	public utilisateur get_session(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		utilisateur bean = (utilisateur) session.getAttribute("utilisateur");
+		return bean;
+	}
 
 }

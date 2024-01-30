@@ -9,16 +9,18 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="assets/css/dashboard.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 <span style="font-family: verdana, geneva, sans-serif;"><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Attendance Dashboard | By Code Info</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="style.css" />
     <!-- Font Awesome Cdn Link -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 </head>
 <body>
   <div class="container">
@@ -28,26 +30,26 @@
           <img src="./pic/logo.jpg">
           <span class="nav-item">Admin</span>
         </a></li>
-        <li><a href="#">
-          <i class="fas fa-menorah"></i>
+        <li><a href="Dashboard">
+          <i class='fas bx bxs-dashboard' ></i>
           <span class="nav-item">Dashboard</span>
         </a></li>
-        <li><a href="#">
-          <i class="fas fa-comment"></i>
-          <span class="nav-item">Message</span>
+        <li id="rdv-link"><a href="#" >
+          <i class='fas bx bxs-calendar'></i>
+          <span class="nav-item">Mes Rendez-Vous</span>
         </a></li>
-        <li><a href="#">
-          <i class="fas fa-database"></i>
-          <span class="nav-item">Report</span>
+        <li><a href="traitement">
+          <i class='fas bx bxs-book-content'></i>
+          <span class="nav-item">Prescriptions</span>
         </a></li>
-        <li><a href="#">
-          <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Attendance</span>
-        </a></li>
-        <li><a href="#">
-          <i class="fas fa-cog"></i>
-          <span class="nav-item">Setting</span>
-        </a></li>
+<%--        <li><a href="#">--%>
+<%--          <i class="fas fa-chart-bar"></i>--%>
+<%--          <span class="nav-item">Attendance</span>--%>
+<%--        </a></li>--%>
+<%--        <li><a href="#">--%>
+<%--          <i class="fas fa-cog"></i>--%>
+<%--          <span class="nav-item">Setting</span>--%>
+<%--        </a></li>--%>
 
         <li><a href="#" class="logout">
           <i class="fas fa-sign-out-alt"></i>
@@ -64,7 +66,7 @@
       </div>
       <div class="users">
         <div class="card">
-          <img src="./pic/img1.jpg">
+          <img src="assets/images/calendrier8.png">
           <h4>Vous avez Aujourd'hui</h4>
           <div class="per">
             <table>
@@ -79,58 +81,49 @@
           <button>Voir les details</button>
         </div>
         <div class="card">
-          <img src="./pic/img2.jpg">
-          <h4>Balbina kherr</h4>
-          <p>Progammer</p>
+          <img src="assets/images/programme.png">
+          <h4>Vous avez maintenant </h4>
           <div class="per">
             <table>
               <tr>
-                <td><span>82%</span></td>
-                <td><span>85%</span></td>
+                <td><span>10</span></td>
               </tr>
               <tr>
-                <td>Month</td>
-                <td>Year</td>
+                <td>demande de RDV non traite</td>
               </tr>
             </table>
           </div>
-          <button>Profile</button>
+          <button>Traiter</button>
         </div>
         <div class="card">
-          <img src="./pic/img3.jpg">
-          <h4>Badan John</h4>
-          <p>tester</p>
+          <img src="assets/images/sante-et-medecine.png">
+          <h4>Vous avez soigne</h4>
           <div class="per">
             <table>
               <tr>
-                <td><span>94%</span></td>
-                <td><span>92%</span></td>
+                <td><span>35</span></td>
               </tr>
               <tr>
-                <td>Month</td>
-                <td>Year</td>
+                <td>personne</td>
               </tr>
             </table>
           </div>
-          <button>Profile</button>
+          <button>voir mes prescriptions</button>
         </div>
         <div class="card">
-          <img src="./pic/img4.jpg">
-          <h4>Salina micheal</h4>
-          <p>Ui designer</p>
+          <img src="assets/images/prescription.png">
+          <h4>Vous avez ecris</h4>
           <div class="per">
             <table>
               <tr>
-                <td><span>85%</span></td>
-                <td><span>82%</span></td>
+                <td><span>85</span></td>
               </tr>
               <tr>
-                <td>Month</td>
-                <td>Year</td>
+                <td>ligne de traitement</td>
               </tr>
             </table>
           </div>
-          <button>Profile</button>
+          <button>consulter</button>
         </div>
       </div>
 
@@ -150,42 +143,56 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>01</td>
-                <td>Sam David</td>
-                <td>Design</td>
-                <td>03-24-22</td>
-                <td>8:00AM</td>
-                <td>3:00PM</td>
-                <td><button>View</button></td>
-              </tr>
-              <tr class="active">
-                <td>02</td>
-                <td>Balbina Kherr</td>
-                <td>Coding</td>
-                <td>03-24-22</td>
-                <td>9:00AM</td>
-                <td>4:00PM</td>
-                <td><button>View</button></td>
-              </tr>
-              <tr>
-                <td>03</td>
-                <td>Badan John</td>
-                <td>testing</td>
-                <td>03-24-22</td>
-                <td>8:00AM</td>
-                <td>3:00PM</td>
-                <td><button>View</button></td>
-              </tr>
-              <tr>
-                <td>04</td>
-                <td>Sara David</td>
-                <td>Design</td>
-                <td>03-24-22</td>
-                <td>8:00AM</td>
-                <td>3:00PM</td>
-                <td><button>View</button></td>
-              </tr>
+
+                  <c:forEach var="rdv" items="${rendezVousMedecin}">
+                  <c:set var="dateRdv" value='<fmt:formatDate value="${rdv.date_rdv}" pattern="yyyy-MM-dd" />' />
+                  <c:set var="dateFin" value='<fmt:formatDate value="${rdv.date_fin}" pattern="yyyy-MM-dd" />' />
+                    <tr>
+                    <td>${rdv.id_rdv}</td>
+                    <td>${rdv.date_debut}</td>
+                    <td>${rdv.date_fin}</td>
+                    <td>${rdv.heure_debut}</td>
+                    <td>${rdv.heure_fin}</td>
+                    <td>${rdv.date_rdv}</td>
+                    <td>${rdv.heure}</td>
+                    </tr>
+                  </c:forEach>
+<%--              <tr>--%>
+<%--                <td>01</td>--%>
+<%--                <td>Sam David</td>--%>
+<%--                <td>Design</td>--%>
+<%--                <td>03-24-22</td>--%>
+<%--                <td>8:00AM</td>--%>
+<%--                <td>3:00PM</td>--%>
+<%--                <td><button>View</button></td>--%>
+<%--              </tr>--%>
+<%--              <tr class="active">--%>
+<%--                <td>02</td>--%>
+<%--                <td>Balbina Kherr</td>--%>
+<%--                <td>Coding</td>--%>
+<%--                <td>03-24-22</td>--%>
+<%--                <td>9:00AM</td>--%>
+<%--                <td>4:00PM</td>--%>
+<%--                <td><button>View</button></td>--%>
+<%--              </tr>--%>
+<%--              <tr>--%>
+<%--                <td>03</td>--%>
+<%--                <td>Badan John</td>--%>
+<%--                <td>testing</td>--%>
+<%--                <td>03-24-22</td>--%>
+<%--                <td>8:00AM</td>--%>
+<%--                <td>3:00PM</td>--%>
+<%--                <td><button>View</button></td>--%>
+<%--              </tr>--%>
+<%--              <tr>--%>
+<%--                <td>04</td>--%>
+<%--                <td>Sara David</td>--%>
+<%--                <td>Design</td>--%>
+<%--                <td>03-24-22</td>--%>
+<%--                <td>8:00AM</td>--%>
+<%--                <td>3:00PM</td>--%>
+<%--                <td><button>View</button></td>--%>
+<%--              </tr>--%>
               <!-- <tr >
                 <td>05</td>
                 <td>Salina</td>
@@ -210,6 +217,22 @@
       </section>
     </section>
   </div>
+<script>
+document.getElementById('rdv-link').addEventListener('click', function() {
+  var form = document.createElement('form');
+  form.method = 'get';
+  form.action = 'rdvs';
+
+  var input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'id';
+  input.value = '${sessionScope.utilisateur.id_utilisateur}';
+
+  form.appendChild(input)
+  document.body.appendChild(form);
+  form.submit();
+});
+</script>
 
 </body>
 </html>

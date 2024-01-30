@@ -17,6 +17,7 @@ import dao.utilisateur_dao;
 /**
  * Servlet implementation class connexion
  */
+@WebServlet(name = "connexion", value = "/connexion")
 public class connexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -59,9 +60,11 @@ public class connexion extends HttpServlet {
             // Créer une session et stocker l'utilisateur connecté
             HttpSession session = request.getSession();
             session.setAttribute("utilisateur", user);
+            //verifier le type de l'utilisateur ${sessionScope.utilisateur.id_utilisateur}
+//            // Rediriger vers la page d'accueil (ou autre page après connexion réussie)
+//            request.getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
 
-            // Rediriger vers la page d'accueil (ou autre page après connexion réussie)
-            request.getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
+            response.sendRedirect("Dashboard");
         } else {
             // Afficher un message d'erreur si la connexion échoue
             request.setAttribute("erreurMessage", "Adresse e-mail ou mot de passe incorrect");
