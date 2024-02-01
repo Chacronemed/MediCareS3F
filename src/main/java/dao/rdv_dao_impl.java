@@ -50,8 +50,8 @@ public class rdv_dao_impl implements rdv_dao{
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		java.sql.Date today_date = new java.sql.Date(new java.util.Date().getTime());
-		System.out.println("############################"+today_date);
-		System.out.println("Executing query with date: " + today_date.toString());
+//		System.out.println("############################"+today_date);
+//		System.out.println("Executing query with date: " + today_date.toString());
 
 		try {
 			connexion = dao_factory.getConnection();
@@ -63,7 +63,7 @@ public class rdv_dao_impl implements rdv_dao{
 			preparedStatement.setString(2, today_date.toString() );
 			resultSet = preparedStatement.executeQuery();
 			if (!resultSet.isBeforeFirst()) {
-				System.out.println("No data found for today's date and given medecin ID: " + id_medcin);
+				System.out.println("RDV_Dao_Impl : No data found for today's date and given medecin ID: " + id_medcin);
 			} else {
 			while (resultSet.next()) {
 				rdv rdv = new rdv();
@@ -149,5 +149,38 @@ public class rdv_dao_impl implements rdv_dao{
         }
 		
 	}
+	public int getIDPatientByRDV(int id_rdv) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null; // Ajout pour stocker le résultat de la requête
+		String query_rdv = "SELECT id_patient FROM rendez_vous WHERE id_rdv = ?;";
+		int idPatient = -1; // Valeur par défaut indiquant que l'id n'a pas été trouvé
+
+		try {
+			connexion = dao_factory.getConnection();
+			preparedStatement = connexion.prepareStatement(query_rdv);
+			preparedStatement.setInt(1, id_rdv);
+			resultSet = preparedStatement.executeQuery();
+
+			// Vérification si le résultat existe et récupération de l'id_patient
+			if (resultSet.next()) { // S'il y a un résultat
+				idPatient = resultSet.getInt("id_patient"); // Récupération de l'id_patient
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // Gérer l'exception de manière appropriée dans votre application
+		} finally {
+			// Bloc finally pour s'assurer que toutes les ressources sont libérées
+			try {
+				if (resultSet != null) resultSet.close();
+				if (preparedStatement != null) preparedStatement.close();
+				if (connexion != null) connexion.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return idPatient; // Retourne l'id_patient ou -1 si non trouvé
+	}
+
 
 }

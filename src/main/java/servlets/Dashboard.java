@@ -37,11 +37,11 @@ public class Dashboard extends HttpServlet {
         else {
             if(userbean.getType().equals("medecin")) {
                 //int id_medecin = medecinDao.get_id_medecin(userbean.getId_utiliseur());
-                System.out.println("999999999999999999999999"+userbean.getId_utiliseur());
+                System.out.println("Dashboard.java : l'id de l'utilisateur conntecté est : "+userbean.getId_utiliseur());
                 // Récupérer les rendez-vous du médecin connecté en fonction du filtre
                 List<rdv> rendezVousMedecin = rdvDao.getTodayMedcineRDV(userbean.getId_utiliseur());
-                // Passer les rendez-vous et le filtre à la page JSP
-                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@"+rendezVousMedecin.size());
+//                // Passer les rendez-vous et le filtre à la page JSP
+//                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@"+rendezVousMedecin.size());
                 request.setAttribute("rendezVousMedecin", rendezVousMedecin);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
                 dispatcher.forward(request, response);

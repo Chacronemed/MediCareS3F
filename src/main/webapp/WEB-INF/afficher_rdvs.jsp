@@ -47,7 +47,7 @@
         <section class="attendance">
             <div class="attendance-list">
                 <h1>Rendez-vous du médecin</h1>
-                <table border="1">
+                <table >
                     <thead>
                     <tr>
                         <th>ID</th>

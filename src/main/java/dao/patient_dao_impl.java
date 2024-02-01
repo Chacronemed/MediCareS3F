@@ -256,5 +256,38 @@ public class patient_dao_impl implements patient_dao {
 	    }
 	}
 
+	public int getIDUtilisateurByIDPatient(int id_patient) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null; // Ajout pour stocker le résultat de la requête
+		String query_rdv = "SELECT id_utilisateur FROM patients WHERE id_patient = ?;";
+		int idUtilisateur = -1; // Valeur par défaut indiquant que l'id n'a pas été trouvé
+
+		try {
+			connexion = dao_factory.getConnection();
+			preparedStatement = connexion.prepareStatement(query_rdv);
+			preparedStatement.setInt(1, id_patient);
+			resultSet = preparedStatement.executeQuery();
+
+			// Vérification si le résultat existe et récupération de l'id_patient
+			if (resultSet.next()) { // S'il y a un résultat
+				idUtilisateur = resultSet.getInt("id_utilisateur"); // Récupération de l'id_patient
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // Gérer l'exception de manière appropriée dans votre application
+		} finally {
+			// Bloc finally pour s'assurer que toutes les ressources sont libérées
+			try {
+				if (resultSet != null) resultSet.close();
+				if (preparedStatement != null) preparedStatement.close();
+				if (connexion != null) connexion.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return idUtilisateur; // Retourne l'id_utilisateur ou -1 si non trouvé
+	}
+
 
 }

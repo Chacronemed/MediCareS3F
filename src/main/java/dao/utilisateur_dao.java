@@ -8,5 +8,6 @@ public interface utilisateur_dao {
 	public utilisateur connexion(String email, String password);
 
 	public utilisateur get_session(HttpServletRequest request);
+	public String getNomPrenomNumTelByIdUtilisateur(int id_utilisateur);
 
 }

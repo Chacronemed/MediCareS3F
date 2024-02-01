@@ -163,4 +163,71 @@ public class utilisateur_dao_impl implements utilisateur_dao{
 		return bean;
 	}
 
+	public int getNomPrenomByIdUtilisateur(int id_utilisateur) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null; // Ajout pour stocker le résultat de la requête
+		String query_rdv = "SELECT nom,prenom FROM utilisateurs WHERE id_utilisateur = ?;";
+		int idUtilisateur = -1; // Valeur par défaut indiquant que l'id n'a pas été trouvé
+
+		try {
+			connexion = dao_factory.getConnection();
+			preparedStatement = connexion.prepareStatement(query_rdv);
+			preparedStatement.setInt(1, id_utilisateur);
+			resultSet = preparedStatement.executeQuery();
+
+			// Vérification si le résultat existe et récupération de l'id_patient
+			if (resultSet.next()) { // S'il y a un résultat
+				idUtilisateur = resultSet.getInt("id_utilisateur"); // Récupération de l'id_patient
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // Gérer l'exception de manière appropriée dans votre application
+		} finally {
+			// Bloc finally pour s'assurer que toutes les ressources sont libérées
+			try {
+				if (resultSet != null) resultSet.close();
+				if (preparedStatement != null) preparedStatement.close();
+				if (connexion != null) connexion.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return idUtilisateur; // Retourne l'id_utilisateur ou -1 si non trouvé
+	}
+
+	public String getNomPrenomNumTelByIdUtilisateur(int id_utilisateur) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String query = "SELECT nom, prenom, num_tel FROM utilisateurs WHERE id_utilisateur = ?;";
+		String resultat = null;
+
+		try {
+			connexion = dao_factory.getConnection();
+			preparedStatement = connexion.prepareStatement(query);
+			preparedStatement.setInt(1, id_utilisateur);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				String nom = resultSet.getString("nom");
+				String prenom = resultSet.getString("prenom");
+				String numTel = resultSet.getString("num_tel");
+				resultat = "Nom: " + nom + ", Prénom: " + prenom + ", Numéro de téléphone: " + numTel;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null) resultSet.close();
+				if (preparedStatement != null) preparedStatement.close();
+				if (connexion != null) connexion.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return resultat; // Retourne null si l'utilisateur n'est pas trouvé
+	}
+
 }

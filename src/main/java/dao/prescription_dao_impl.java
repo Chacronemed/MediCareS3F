@@ -6,7 +6,9 @@ import beans.traitementBean;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class prescription_dao_impl implements prescription_dao{
@@ -77,4 +79,97 @@ public class prescription_dao_impl implements prescription_dao{
             }
         }
     }
+    public Integer getIDRDV(int id_traitement) {
+        Integer id_rdv = null;
+        String query = "SELECT id_rdv FROM traitements WHERE id_traitement = ?";
+
+        try (Connection connection = dao_factory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, id_traitement);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (!resultSet.isBeforeFirst()) {
+                    System.out.println("No data found for treatment ID: " + id_traitement);
+                } else {
+                    while (resultSet.next()) {
+                        if (id_rdv != null) {
+                            throw new SQLException("More than one RDV found for treatment ID: " + id_traitement);
+                        }
+                        id_rdv = resultSet.getInt("id_rdv");
+                    }
+                }
+            }
+            // If you're managing a transaction, uncomment the next line
+            // connection.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            // If you're managing a transaction, consider adding rollback logic here
+        }
+
+        return id_rdv;
+    }
+
+    //pour recupere les rendez vous que le medcin a accepté
+    public List<Integer> getRendezVousAcceptesParMedecin(int idMedecin) {
+        List<Integer> listeRdvAcceptes = new ArrayList<>();
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String query = "SELECT id_rdv FROM rendez_vous WHERE id_med = ? AND etat_rdv = '1';";
+
+        try {
+            connexion = dao_factory.getConnection();
+            preparedStatement = connexion.prepareStatement(query);
+            preparedStatement.setInt(1, idMedecin);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                System.out.println("result : " + resultSet.getInt("id_rdv"));
+                listeRdvAcceptes.add(resultSet.getInt("id_rdv"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Gérer l'exception de manière appropriée
+        } finally {
+            // Fermeture des ressources
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connexion != null) connexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listeRdvAcceptes;
+    }
+
+    public List<traitementBean> getTraitementsParRDV(int idRdv) {
+        List<traitementBean> traitements = new ArrayList<>();
+        String sql = "SELECT * FROM traitements WHERE id_rdv = ?;";
+
+        try (Connection connection = dao_factory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idRdv);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    traitementBean traitement = new traitementBean();
+                    traitement.setId_traitement(resultSet.getInt("id_traitement"));
+                    traitement.setRemarque(resultSet.getString("remarque"));
+                    traitement.setDate_traitement(resultSet.getDate("date_traitements"));
+                    traitement.setId_rdv(resultSet.getInt("id_rdv"));
+                    // L'attribut id_suivie semble ne pas être présent dans votre schéma SQL actuel
+                    // traitement.setId_suivie(resultSet.getInt("id_suivie"));
+                    traitements.add(traitement);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer l'exception de manière appropriée
+        }
+
+        return traitements;
+    }
+
 }
+
+//public List<traitementBean> ()

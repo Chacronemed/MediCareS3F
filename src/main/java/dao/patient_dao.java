@@ -8,5 +8,6 @@ public interface patient_dao {
 	public void supprimerPatient(int id_patient);
 	public void ajouterDossierMedical(int id_patient, int id_dm);
 	public int get_id_patient(int id_utilisateur);
+	public int getIDUtilisateurByIDPatient(int id_patient);
 
 }
