@@ -23,6 +23,26 @@
     <!-- Font Awesome Cdn Link -->
 </head>
 <body>
+  <script>
+    function myFunction() {
+document.getElementById('myButton').addEventListener('click', function() {
+  var rdvId = this.getAttribute('data-parametre');
+  //alert("La valeur du paramètre est : " + rdvId);
+  var form = document.createElement('form');
+  form.method = 'get';
+  form.action = 'traitement';
+
+  var input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'id_rdv';
+  input.value = rdvId;
+
+  form.appendChild(input)
+  document.body.appendChild(form);
+  form.submit();
+});
+}
+</script>
   <div class="container">
     <nav>
       <ul>
@@ -154,7 +174,7 @@
                     <td>${rdv.heure_debut}</td>
                     <td>${rdv.heure_fin}</td>
                     <td>${rdv.date_rdv}</td>
-                    <td>${rdv.heure}</td>
+                    <td><button id="myButton" data-parametre="${rdv.id_rdv}" onclick="myFunction()">View</button></td>
                     </tr>
                   </c:forEach>
 <%--              <tr>--%>
