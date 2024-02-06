@@ -15,6 +15,8 @@
     
 </head>
 <body>
+
+<%@include file="/WEB-INF/navbarpatient.jsp" %>
     <h1>Fixer un rendez-vous avec le médecin</h1>
     <c:if test="${sessionScope.utilisateur ne null}">
 

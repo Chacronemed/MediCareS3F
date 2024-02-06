@@ -30,11 +30,14 @@ public class Dashboard extends HttpServlet {
         medecin_dao medecinDao = daoFactory.get_medecin_dao();
         prescription_dao prescriptionDao = daoFactory.get_prescription_dao();
 
+        patient_dao patientDao = daoFactory.get_patient_dao();
+
         utilisateur userbean = utilisateurDao.get_session(request);
         if(userbean == null){
             response.sendRedirect("connexion");
         }
         else {
+            System.out.println("le type de user est "+ userbean.getType());
             if(userbean.getType().equals("medecin")) {
                 //int id_medecin = medecinDao.get_id_medecin(userbean.getId_utiliseur());
                 //System.out.println("Dashboard.java : l'id de l'utilisateur conntecté est : "+userbean.getId_utiliseur());
@@ -62,7 +65,11 @@ public class Dashboard extends HttpServlet {
                 dispatcher.forward(request, response);
             }
             else if (userbean.getType().equals("patient")) {
-
+                System.out.println("ple type de user est "+ userbean.getType());
+                List<rdv_dash> list_rdv_dash = patientDao.get_all_rdv_patient(userbean.getId_utiliseur());
+                request.setAttribute("rendezVousPatient", list_rdv_dash);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/dashboard/DashboardPatient.jsp");
+                dispatcher.forward(request, response);
             }
         }
         // Redirection vers la page JSP d'affichage des rendez-vous

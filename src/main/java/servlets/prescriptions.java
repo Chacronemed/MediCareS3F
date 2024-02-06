@@ -23,9 +23,10 @@ public class prescriptions extends HttpServlet {
         utilisateur_dao UtilisateurDao = daoFactory.get_utilisateur_dao();
         rdv_dao RdvDao = daoFactory.get_rdv_dao();
 
-        int idMedecin = 3; // Cet ID devrait être récupéré de manière appropriée, par exemple via une session
-
+        int idMedecin = Integer.parseInt(request.getParameter("id")); // Cet ID devrait être récupéré de manière appropriée, par exemple via une session
+        System.out.println("gggggg" +idMedecin);
         List<Integer> rdvsAcceptes = PrescriptionDao.getRendezVousAcceptesParMedecin(idMedecin);
+        System.out.println(rdvsAcceptes);
         Map<traitementBean, String> traitementsInfo = new HashMap<>();
         for (Integer idRdv : rdvsAcceptes) {
             List<traitementBean> traitements = PrescriptionDao.getTraitementsParRDV(idRdv);
