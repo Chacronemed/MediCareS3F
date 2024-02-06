@@ -12,6 +12,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class traitement extends HttpServlet {
         prescription_dao prescriptionDAO = daoFactory.get_prescription_dao();
 
         // Récupérer les paramètres du formulaire JSP
+
+        HttpSession session = request.getSession();
+        int id_rdv = (int) session.getAttribute("id_rdv");
         String nomMaladie = request.getParameter("nomMaladie");
         String descriptionMaladie = request.getParameter("descriptionMaladie");
         Date dateMaladie = Date.valueOf(request.getParameter("dateMaladie"));
@@ -71,7 +76,8 @@ public class traitement extends HttpServlet {
 
         // Appeler la méthode DAO pour insérer les données
         //prescription_dao prescriptionDAO = new prescription_dao();
-        prescriptionDAO.ajouterPrescription(maladie, traitement, lignesTraitement);
+        int id_dossier_medicale = prescriptionDAO.get_id_dossier_medicale(id_rdv);
+        prescriptionDAO.ajouterPrescription(maladie, traitement, lignesTraitement, id_rdv, id_dossier_medicale);
 
         // Rediriger vers une page de confirmation
         response.sendRedirect("confirmation.jsp");

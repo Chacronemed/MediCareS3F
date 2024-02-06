@@ -23,6 +23,26 @@
     <!-- Font Awesome Cdn Link -->
 </head>
 <body>
+  <script>
+    function myFunction() {
+document.getElementById('myButton').addEventListener('click', function() {
+  var rdvId = this.getAttribute('data-parametre');
+  //alert("La valeur du paramètre est : " + rdvId);
+  var form = document.createElement('form');
+  form.method = 'get';
+  form.action = 'traitement';
+
+  var input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'id_rdv';
+  input.value = rdvId;
+
+  form.appendChild(input)
+  document.body.appendChild(form);
+  form.submit();
+});
+}
+</script>
   <div class="container">
     <nav>
       <ul>
@@ -134,11 +154,11 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Depart</th>
-                <th>Date</th>
-                <th>Join Time</th>
-                <th>Logout Time</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Num Tel</th>
+                <th>Date rdv</th>
+                <th>heure rdv</th>
                 <th>Details</th>
               </tr>
             </thead>
@@ -149,12 +169,12 @@
                   <c:set var="dateFin" value='<fmt:formatDate value="${rdv.date_fin}" pattern="yyyy-MM-dd" />' />
                     <tr>
                     <td>${rdv.id_rdv}</td>
-                    <td>${rdv.date_debut}</td>
-                    <td>${rdv.date_fin}</td>
-                    <td>${rdv.heure_debut}</td>
-                    <td>${rdv.heure_fin}</td>
+                    <td>${rdv.nom}</td>
+                    <td>${rdv.prenom}</td>
+                    <td>${rdv.num_tel}</td>
                     <td>${rdv.date_rdv}</td>
                     <td>${rdv.heure}</td>
+                    <td><button id="myButton" data-parametre="${rdv.id_rdv}" onclick="myFunction()">View</button></td>
                     </tr>
                   </c:forEach>
 <%--              <tr>--%>

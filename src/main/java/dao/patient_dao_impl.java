@@ -288,6 +288,4 @@ public class patient_dao_impl implements patient_dao {
 
 		return idUtilisateur; // Retourne l'id_utilisateur ou -1 si non trouvé
 	}
-
-
 }

@@ -18,7 +18,7 @@ public class prescription_dao_impl implements prescription_dao{
         this.dao_factory = dao_factory;
     }
     @Override
-    public void ajouterPrescription(maladie maladie, traitementBean traitement, List<ligne_traitement> lignesTraitement) {
+    public void ajouterPrescription(maladie maladie, traitementBean traitement, List<ligne_traitement> lignesTraitement, int id_rdv, int id_dossier_medicale) {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -32,7 +32,7 @@ public class prescription_dao_impl implements prescription_dao{
             preparedStatement.setString(1, maladie.getNom());
             preparedStatement.setString(2, maladie.getDescription());
             preparedStatement.setDate(3, new java.sql.Date(maladie.getDate_maladie().getTime()));
-            preparedStatement.setInt(4, 12);
+            preparedStatement.setInt(4, id_dossier_medicale);
             preparedStatement.executeUpdate();
 
             // Insérer le traitement
@@ -40,7 +40,7 @@ public class prescription_dao_impl implements prescription_dao{
             preparedStatement = connection.prepareStatement(queryTraitement);
             preparedStatement.setString(1, traitement.getRemarque());
             preparedStatement.setDate(2, traitement.getDate_traitement());
-            preparedStatement.setInt(3, 5);
+            preparedStatement.setInt(3, id_rdv);
             preparedStatement.executeUpdate();
 
             // Insérer les lignes de traitemet
@@ -173,7 +173,31 @@ public class prescription_dao_impl implements prescription_dao{
 
         return traitements;
     }
+    //récuperer l'id du dossier medicale à atravers l'id du patient
+    public int  get_id_dossier_medicale(int id_rdv)
+    {
+        int id_dossier_medicale=-1;
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connexion = dao_factory.getConnection();
+            String query = "SELECT id_dossier_medicale FROM dossier_medicale where id_patient in (SELECT id_patient from rendez_vous where id_rdv= ?);";
+            preparedStatement = connexion.prepareStatement(query);
+            preparedStatement.setInt(1, id_rdv);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next())
+                id_dossier_medicale = resultSet.getInt("id_dossier_medicale");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id_dossier_medicale;
+
+    }
 
 }
 
 //public List<traitementBean> ()
+//récuperer l'id du dossier medicale à atravers l'id du patient
