@@ -232,6 +232,21 @@ document.getElementById('rdv-link').addEventListener('click', function() {
   document.body.appendChild(form);
   form.submit();
 });
+
+document.getElementById('rdv-link').addEventListener('click', function() {
+  var form = document.createElement('form');
+  form.method = 'get';
+  form.action = 'rdvs';
+
+  var input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'id';
+  input.value = '${sessionScope.utilisateur.id_utilisateur}';
+
+  form.appendChild(input)
+  document.body.appendChild(form);
+  form.submit();
+});
 </script>
 
 </body>

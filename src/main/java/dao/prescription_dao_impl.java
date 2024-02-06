@@ -79,6 +79,10 @@ public class prescription_dao_impl implements prescription_dao{
             }
         }
     }
+
+    public void updateMaladie(maladie maladie, traitementBean traitement, List<ligne_traitement> lignesTraitement){
+
+    }
     public Integer getIDRDV(int id_traitement) {
         Integer id_rdv = null;
         String query = "SELECT id_rdv FROM traitements WHERE id_traitement = ?";

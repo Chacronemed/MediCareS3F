@@ -38,7 +38,7 @@
           <i class='fas bx bxs-calendar'></i>
           <span class="nav-item">Mes Rendez-Vous</span>
         </a></li>
-        <li><a href="#">
+        <li id="prescription-link"><a href="#">
           <i class='fas bx bxs-book-content'></i>
           <span class="nav-item">Prescriptions</span>
         </a></li>
@@ -64,6 +64,20 @@ document.getElementById('rdv-link').addEventListener('click', function() {
     var form = document.createElement('form');
     form.method = 'get';
     form.action = 'rdvs';
+
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'id';
+    input.value = '${sessionScope.utilisateur.id_utilisateur}';
+
+    form.appendChild(input)
+    document.body.appendChild(form);
+    form.submit();
+});
+document.getElementById('prescription-link').addEventListener('click', function() {
+    var form = document.createElement('form');
+    form.method = 'get';
+    form.action = 'prescriptions';
 
     var input = document.createElement('input');
     input.type = 'hidden';
