@@ -28,6 +28,8 @@ public class Dashboard extends HttpServlet {
         dao_factory daoFactory = dao_factory.getInstance();
         rdv_dao rdvDao = daoFactory.get_rdv_dao();
         medecin_dao medecinDao = daoFactory.get_medecin_dao();
+        prescription_dao prescriptionDao = daoFactory.get_prescription_dao();
+
         patient_dao patientDao = daoFactory.get_patient_dao();
 
         utilisateur userbean = utilisateurDao.get_session(request);
@@ -38,7 +40,7 @@ public class Dashboard extends HttpServlet {
             System.out.println("le type de user est "+ userbean.getType());
             if(userbean.getType().equals("medecin")) {
                 //int id_medecin = medecinDao.get_id_medecin(userbean.getId_utiliseur());
-                System.out.println("Dashboard.java : l'id de l'utilisateur conntecté est : "+userbean.getId_utiliseur());
+                //System.out.println("Dashboard.java : l'id de l'utilisateur conntecté est : "+userbean.getId_utiliseur());
                 // Récupérer les rendez-vous du médecin connecté en fonction du filtre
                 //List<rdv> rendezVousMedecin = rdvDao.getTodayMedcineRDV(userbean.getId_utiliseur());
 //                // Passer les rendez-vous et le filtre à la page JSP
@@ -48,6 +50,17 @@ public class Dashboard extends HttpServlet {
                 //int id_utilisateur = (int) session.getAttribute("id_utilistaeur");
                 List<rdv_dash> list_rdv_dash = medecinDao.get_all_rdv_med(userbean.getId_utiliseur());
                 request.setAttribute("rendezVousMedecin", list_rdv_dash);
+                int nombre_rdv = rdvDao.get_count_rdv(userbean.getId_utiliseur());
+                request.setAttribute("nombre_rdv", nombre_rdv);
+                //nombre de rendez-vous non traité
+                int nombre_rdv_NT = rdvDao.get_count_rdv_NT(userbean.getId_utiliseur());
+                request.setAttribute("nombre_rdv_NT",nombre_rdv_NT);
+                //nombre de prescription
+                int nombre_prescription = prescriptionDao.get_count_prescription(userbean.getId_utiliseur());
+                request.setAttribute("nombre_prescription",nombre_prescription);
+                //nombre de soigne
+                int nombre_soigne = prescriptionDao.get_count_soigne(userbean.getId_utiliseur());
+                request.setAttribute("nombre_soigne",nombre_soigne);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/accueil.jsp");
                 dispatcher.forward(request, response);
             }
