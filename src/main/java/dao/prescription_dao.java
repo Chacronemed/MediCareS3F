@@ -12,5 +12,7 @@ public interface prescription_dao {
     public List<Integer> getRendezVousAcceptesParMedecin(int idMedecin);
     public List<traitementBean> getTraitementsParRDV(int idRdv);
     public int  get_id_dossier_medicale(int id_patient);
+    public int get_count_prescription(int id_med);
+    public int get_count_soigne(int id_med);
 
 }

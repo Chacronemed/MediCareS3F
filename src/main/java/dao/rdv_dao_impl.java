@@ -181,6 +181,71 @@ public class rdv_dao_impl implements rdv_dao{
 
 		return idPatient; // Retourne l'id_patient ou -1 si non trouvé
 	}
+	//----------obtenir le nombre de rendez-vous du jour courant
+	public int get_count_rdv(int id_med)
+	{
+		int nombre =0;
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null; // Ajout pour stocker le résultat de la requête
+		String query_rdv = "SELECT COUNT(*) AS nombre_rendez_vous FROM rendez_vous WHERE DATE(date_rdv) = CURDATE() and id_med=?";
+		try {
+			connexion = dao_factory.getConnection();
+			preparedStatement = connexion.prepareStatement(query_rdv);
+			preparedStatement.setInt(1, id_med);
+			resultSet = preparedStatement.executeQuery();
 
+			if (resultSet.next()) {
+				nombre = resultSet.getInt("nombre_rendez_vous");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (resultSet != null) resultSet.close();
+				if (preparedStatement != null) preparedStatement.close();
+				if (connexion != null) connexion.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+
+		return nombre;
+	}
+
+    public int get_count_rdv_NT(int id_med)
+    {
+        int nombre =0;
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null; // Ajout pour stocker le résultat de la requête
+        String query_rdv = "SELECT COUNT(*) AS nombre_rendez_vous FROM rendez_vous WHERE etat_rdv IS NULL and id_med=?;";
+        try {
+            connexion = dao_factory.getConnection();
+            preparedStatement = connexion.prepareStatement(query_rdv);
+            preparedStatement.setInt(1, id_med);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                nombre = resultSet.getInt("nombre_rendez_vous");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connexion != null) connexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return nombre;
+    }
 
 }

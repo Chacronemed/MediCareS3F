@@ -193,6 +193,72 @@ public class prescription_dao_impl implements prescription_dao{
 
     }
 
+    public int get_count_prescription(int id_med)
+    {
+        int nombre =0;
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null; // Ajout pour stocker le résultat de la requête
+        String query_rdv = "SELECT COUNT(*) AS nombre_prescription FROM traitements WHERE id_rdv in (SELECT id_rdv from rendez_vous where id_med = ?);";
+        try {
+            connexion = dao_factory.getConnection();
+            preparedStatement = connexion.prepareStatement(query_rdv);
+            preparedStatement.setInt(1, id_med);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                nombre = resultSet.getInt("nombre_prescription");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connexion != null) connexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return nombre;
+    }
+
+    public int get_count_soigne(int id_med)
+    {
+        int nombre =0;
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null; // Ajout pour stocker le résultat de la requête
+        String query_rdv = "SELECT COUNT(*) AS nombre_soigne FROM rendez_vous WHERE id_med = ? and etat_rdv = '1';";
+        try {
+            connexion = dao_factory.getConnection();
+            preparedStatement = connexion.prepareStatement(query_rdv);
+            preparedStatement.setInt(1, id_med);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                nombre = resultSet.getInt("nombre_soigne");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connexion != null) connexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return nombre;
+    }
+
 }
 
 //public List<traitementBean> ()

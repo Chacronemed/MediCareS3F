@@ -91,7 +91,7 @@ document.getElementById('myButton').addEventListener('click', function() {
           <div class="per">
             <table>
               <tr>
-                <td><span>25</span></td>
+                <td><span>${nombre_rdv}</span></td>
               </tr>
               <tr>
                 <td>Rendez-vous</td>
@@ -106,7 +106,7 @@ document.getElementById('myButton').addEventListener('click', function() {
           <div class="per">
             <table>
               <tr>
-                <td><span>10</span></td>
+                <td><span>${nombre_rdv_NT}</span></td>
               </tr>
               <tr>
                 <td>demande de RDV non traite</td>
@@ -121,7 +121,7 @@ document.getElementById('myButton').addEventListener('click', function() {
           <div class="per">
             <table>
               <tr>
-                <td><span>35</span></td>
+                <td><span>${nombre_soigne}</span></td>
               </tr>
               <tr>
                 <td>personne</td>
@@ -136,7 +136,7 @@ document.getElementById('myButton').addEventListener('click', function() {
           <div class="per">
             <table>
               <tr>
-                <td><span>85</span></td>
+                <td><span>${nombre_prescription}</span></td>
               </tr>
               <tr>
                 <td>ligne de traitement</td>
