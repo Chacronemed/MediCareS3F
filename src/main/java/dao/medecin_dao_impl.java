@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.medecin;
+import beans.patient;
+import beans.rdv;
+import beans.rdv_dash;
 
 public class medecin_dao_impl implements medecin_dao{
 	
@@ -213,6 +216,55 @@ public class medecin_dao_impl implements medecin_dao{
 	    }
 
 	    return listeMedecins;
+	}
+
+	public List<rdv_dash> get_all_rdv_med(int id_med) {
+		List<rdv_dash> list_rdv_dash = new ArrayList<>();
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String query = "SELECT r.*,  p.*, u.* FROM rendez_vous r INNER JOIN patients p ON r.id_patient = p.id_patient INNER JOIN utilisateurs u ON p.id_utilisateur = u.id_utilisateur WHERE DATE(r.date_rdv) = CURDATE() and r.id_med=?;";
+		try {
+			connexion = dao_factory.getConnection();
+			preparedStatement = connexion.prepareStatement(query);
+			preparedStatement.setInt(1, id_med);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				String nom = resultSet.getString("nom");
+				String prenom = resultSet.getString("prenom");
+				String numTel = resultSet.getString("num_tel");
+				String email = resultSet.getString("email");
+				String sexe = resultSet.getString("sexe");
+
+				rdv_dash rdv_dash = new rdv_dash();
+
+				rdv_dash.setNom(nom);
+				rdv_dash.setPrenom(prenom);
+				rdv_dash.setNum_tel(numTel);
+				rdv_dash.setEmail(email);
+				rdv_dash.setSexe(sexe);
+				rdv_dash.setDate_rdv(resultSet.getDate("date_rdv"));
+				rdv_dash.setHeure(resultSet.getString("heure"));
+				rdv_dash.setId_rdv(resultSet.getInt("id_rdv"));
+				rdv_dash.setId_patient(resultSet.getInt("id_patient"));
+				rdv_dash.setId_med(resultSet.getInt("id_med"));
+				list_rdv_dash.add(rdv_dash);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null) resultSet.close();
+				if (preparedStatement != null) preparedStatement.close();
+				if (connexion != null) connexion.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return list_rdv_dash;
 	}
 
 

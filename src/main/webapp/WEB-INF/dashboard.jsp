@@ -154,11 +154,11 @@ document.getElementById('myButton').addEventListener('click', function() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Depart</th>
-                <th>Date</th>
-                <th>Join Time</th>
-                <th>Logout Time</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Num Tel</th>
+                <th>Date rdv</th>
+                <th>heure rdv</th>
                 <th>Details</th>
               </tr>
             </thead>
@@ -169,11 +169,11 @@ document.getElementById('myButton').addEventListener('click', function() {
                   <c:set var="dateFin" value='<fmt:formatDate value="${rdv.date_fin}" pattern="yyyy-MM-dd" />' />
                     <tr>
                     <td>${rdv.id_rdv}</td>
-                    <td>${rdv.date_debut}</td>
-                    <td>${rdv.date_fin}</td>
-                    <td>${rdv.heure_debut}</td>
-                    <td>${rdv.heure_fin}</td>
+                    <td>${rdv.nom}</td>
+                    <td>${rdv.prenom}</td>
+                    <td>${rdv.num_tel}</td>
                     <td>${rdv.date_rdv}</td>
+                    <td>${rdv.heure}</td>
                     <td><button id="myButton" data-parametre="${rdv.id_rdv}" onclick="myFunction()">View</button></td>
                     </tr>
                   </c:forEach>
