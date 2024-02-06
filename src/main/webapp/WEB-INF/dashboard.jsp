@@ -43,41 +43,7 @@ document.getElementById('myButton').addEventListener('click', function() {
 });
 }
 </script>
-  <div class="container">
-    <nav>
-      <ul>
-        <li><a href="#" class="logo">
-          <img src="./pic/logo.jpg">
-          <span class="nav-item">Admin</span>
-        </a></li>
-        <li><a href="Dashboard">
-          <i class='fas bx bxs-dashboard' ></i>
-          <span class="nav-item">Dashboard</span>
-        </a></li>
-        <li id="rdv-link"><a href="#" >
-          <i class='fas bx bxs-calendar'></i>
-          <span class="nav-item">Mes Rendez-Vous</span>
-        </a></li>
-        <li><a href="traitement">
-          <i class='fas bx bxs-book-content'></i>
-          <span class="nav-item">Prescriptions</span>
-        </a></li>
-<%--        <li><a href="#">--%>
-<%--          <i class="fas fa-chart-bar"></i>--%>
-<%--          <span class="nav-item">Attendance</span>--%>
-<%--        </a></li>--%>
-<%--        <li><a href="#">--%>
-<%--          <i class="fas fa-cog"></i>--%>
-<%--          <span class="nav-item">Setting</span>--%>
-<%--        </a></li>--%>
-
-        <li><a href="#" class="logout">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Log out</span>
-        </a></li>
-      </ul>
-    </nav>
-
+  <%@include file="/WEB-INF/navbar.jsp" %>
 
     <section class="main">
       <div class="main-top">

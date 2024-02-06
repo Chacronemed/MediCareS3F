@@ -64,7 +64,7 @@ public class connexion extends HttpServlet {
 //            // Rediriger vers la page d'accueil (ou autre page après connexion réussie)
 //            request.getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
 
-            response.sendRedirect("Dashboard");
+            response.sendRedirect("Dashboard?id="+user.getId_utiliseur());
         } else {
             // Afficher un message d'erreur si la connexion échoue
             request.setAttribute("erreurMessage", "Adresse e-mail ou mot de passe incorrect");

@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<%@include file="/WEB-INF/navbar.jsp" %>
 <c:if test="${sessionScope.utilisateur ne null}">
     <h2>Modifier/Supprimer le Profil</h2>
 
