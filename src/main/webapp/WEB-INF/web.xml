@@ -92,4 +92,14 @@
         <servlet-name>confirmation_rdv</servlet-name>
         <url-pattern>/confirmation_rdv</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>rdvspatient</display-name>
+        <servlet-name>rdvspatient</servlet-name>
+        <servlet-class>servlets.rdvspatient</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>rdvspatient</servlet-name>
+        <url-pattern>/rdvspatient</url-pattern>
+    </servlet-mapping>
 </web-app>

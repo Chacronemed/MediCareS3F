@@ -6,17 +6,100 @@
     <meta charset="UTF-8">
     <title>Fixer un rendez-vous</title>
      <style>
-        /* Ajouter un style pour la section de liste avec défilement */
-        .doctor-list {
-            height: 200px; /* Hauteur fixe */
-            overflow: auto; /* Ajouter une barre de défilement en cas de dépassement de la hauteur */
-        }
+         h1 {
+             text-align: center;
+             color: #333;
+             margin: 20px 0;
+         }
+
+         .doctor-list {
+             max-height: 300px;
+             overflow-y: auto;
+             background-color: #fff;
+             border: 1px solid #ddd;
+             border-radius: 4px;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+             margin-bottom: 20px;
+         }
+
+         table {
+             width: 100%;
+             border-collapse: collapse;
+         }
+
+         th, td {
+             padding: 10px;
+             text-align: left;
+             border-bottom: 1px solid #ddd;
+         }
+
+         th {
+             background-color: #5cb85c;
+         }
+
+         tr:hover {
+             background-color: #f1f1f1;
+         }
+
+         form {
+             background-color: #fff;
+             padding: 20px;
+             max-width: 90%;
+             margin: 20px auto;
+             border-radius: 4px;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+         }
+
+         label {
+             display: block;
+             margin-bottom: 5px;
+             font-weight: bold;
+         }
+
+         input[type="date"],
+         input[type="time"],
+         input[type="submit"] {
+             width: 100%;
+             padding: 10px;
+             margin-bottom: 15px;
+             border: 1px solid #ddd;
+             border-radius: 4px;
+             box-sizing: border-box; /* Adds padding without increasing the width */
+         }
+
+         input[type="submit"] {
+             background-color: #5cb85c;
+             color: white;
+             cursor: pointer;
+             border: none;
+         }
+
+         input[type="submit"]:hover {
+             background-color: #4cae4c;
+         }
+
+         input[type="radio"] {
+             margin-right: 5px;
+         }
+
+         @media (max-width: 768px) {
+             h1 {
+                 font-size: 24px;
+             }
+
+             .doctor-list,
+             form {
+                 width: 95%;
+                 margin: 20px auto;
+             }
+         }
     </style>
     
 </head>
 <body>
 
 <%@include file="/WEB-INF/navbarpatient.jsp" %>
+<div style="flex: 1;">
     <h1>Fixer un rendez-vous avec le médecin</h1>
     <c:if test="${sessionScope.utilisateur ne null}">
 
@@ -68,5 +151,6 @@
         <input type="submit" value="Fixer le rendez-vous">
     </form>
     </c:if>
+</div>
 </body>
 </html>

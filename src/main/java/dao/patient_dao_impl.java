@@ -297,7 +297,7 @@ public class patient_dao_impl implements patient_dao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		String query = "SELECT r.*,  p.*, u.* FROM rendez_vous r INNER JOIN medecins p ON r.id_med = p.id_med INNER JOIN utilisateurs u ON p.id_utilisateur = u.id_utilisateur WHERE DATE(r.date_rdv) = CURDATE() and r.id_patient=?;";
+		String query = "SELECT r.*,  p.*, u.* FROM rendez_vous r INNER JOIN medecins p ON r.id_med = p.id_med INNER JOIN utilisateurs u ON p.id_utilisateur = u.id_utilisateur WHERE r.id_patient=?;";
 		try {
 			connexion = dao_factory.getConnection();
 			preparedStatement = connexion.prepareStatement(query);
