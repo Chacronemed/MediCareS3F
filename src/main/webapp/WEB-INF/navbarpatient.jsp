@@ -64,7 +64,7 @@
 document.getElementById('rdv-link').addEventListener('click', function() {
     var form = document.createElement('form');
     form.method = 'get';
-    form.action = 'rdvs';
+    form.action = 'rdvspatient';
 
     var input = document.createElement('input');
     input.type = 'hidden';

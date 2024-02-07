@@ -1,8 +1,10 @@
 package servlets;
 
 import beans.rdv;
+import beans.rdv_dash;
 import dao.dao_factory;
 import dao.medecin_dao;
+import dao.patient_dao;
 import dao.rdv_dao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -34,17 +36,17 @@ public class rdvspatient extends HttpServlet {
 		
 		dao_factory daoFactory = dao_factory.getInstance();
         rdv_dao rdvDao = daoFactory.get_rdv_dao();
-        medecin_dao medecinDao = daoFactory.get_medecin_dao();
-        int id_medecin = medecinDao.get_id_medecin(Integer.parseInt(request.getParameter("id")));
+        patient_dao patientDao = daoFactory.get_patient_dao();
+        int id_patient = patientDao.get_id_patient(Integer.parseInt(request.getParameter("id")));
 
 
 	    // Récupérer le filtre depuis les paramètres de l'URL
 	    //String filtre = request.getParameter("id"); get_all_rdv_patient
 
 	    // Récupérer les rendez-vous du médecin connecté en fonction du filtre
-	    List<rdv> rendezVousMedecin = rdvDao.getRdvMedecin(id_medecin);
+		List<rdv_dash> rendezVousPatient = patientDao.get_all_rdv_patient(id_patient);
 	    // Passer les rendez-vous et le filtre à la page JSP
-	    request.setAttribute("rendezVousMedecin", rendezVousMedecin);
+	    request.setAttribute("rendezVousPatient", rendezVousPatient);
 	    
 	 
 

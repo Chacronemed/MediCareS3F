@@ -17,6 +17,7 @@ public class rdv_dash {
     private Date date_fin;
     private String heure_debut;
     private String heure_fin;
+    private String specialite;
 
     private int id_patient;
     private int id_med;
@@ -147,5 +148,13 @@ public class rdv_dash {
 
     public void setId_med(int id_med) {
         this.id_med = id_med;
+    }
+
+    public String getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
     }
 }

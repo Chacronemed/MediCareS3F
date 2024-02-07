@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-<%@include file="/WEB-INF/navbar.jsp" %>
+<%@include file="/WEB-INF/navbarpatient.jsp" %>
 <div class="right-table">
     <section class="table__header">
         <h1>Rendez-vous du médecin</h1>
@@ -26,41 +26,37 @@
         <table>
             <thead>
             <tr>
-                <th> ID <span class="icon-arrow">&UpArrow;</span></th>
-                <th> Date début <span class="icon-arrow">&UpArrow;</span></th>
-                <th> Date final <span class="icon-arrow">&UpArrow;</span></th>
-                <th> Heure début <span class="icon-arrow">&UpArrow;</span></th>
-                <th> Heure fin <span class="icon-arrow">&UpArrow;</span></th>
-                <th> Date rendez-vous <span class="icon-arrow">&UpArrow;</span></th>
+                <th> IDRDV <span class="icon-arrow">&UpArrow;</span></th>
+                <th> Date rendez vous <span class="icon-arrow">&UpArrow;</span></th>
                 <th> Heure rendez-vous <span class="icon-arrow">&UpArrow;</span></th>
+                <th> Nom Medecin <span class="icon-arrow">&UpArrow;</span></th>
+                <th> Prenom Medecin <span class="icon-arrow">&UpArrow;</span></th>
+                <th> specialité <span class="icon-arrow">&UpArrow;</span></th>
+                <th> numero de telephone<span class="icon-arrow">&UpArrow;</span></th>
                 <th> Remarque <span class="icon-arrow">&UpArrow;</span></th>
-                <th> fixer rdv <span class="icon-arrow">&UpArrow;</span></th>
+                <th> Prescription <span class="icon-arrow">&UpArrow;</span></th>
 <%--                <th> traiter <span class="icon-arrow">&UpArrow;</span></th>--%>
 
 
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="rdv" items="${rendezVousMedecin}">
+            <c:forEach var="rdv" items="${rendezVousPatient}">
                 <c:set var="dateRdv" value='<fmt:formatDate value="${rdv.date_rdv}" pattern="yyyy-MM-dd" />' />
                 <c:set var="dateFin" value='<fmt:formatDate value="${rdv.date_fin}" pattern="yyyy-MM-dd" />' />
 
                 <tr class="rdv-row ${rdv.date_rdv == null && rdv.heure == null ? 'non-traites' : ''} ${rdv.date_rdv != null && dateFin != null && (dateRdv >= cdate || dateFin >= cdate) ? 'prevus' : ''} ${dateRdv != null && dateRdv == cdate ? 'jour' : ''} ${dateRdv != null && (dateRdv <= cdate || dateFin <= cdate) ? 'passes' : ''}">
                     <td>${rdv.id_rdv}</td>
-                    <td>${rdv.date_debut}</td>
-                    <td>${rdv.date_fin}</td>
-                    <td>${rdv.heure_debut}</td>
-                    <td>${rdv.heure_fin}</td>
                     <td>${rdv.date_rdv}</td>
-                    <td>${rdv.heure}</td>
+                    <td>${rdv.heure_debut}</td>
+                    <td>${rdv.nom}</td>
+                    <td>${rdv.prenom}</td>
+                    <td>${rdv.specialite}</td>
+                    <td>${rdv.num_tel}</td>
+
                     <td>${rdv.remarque}</td>
                     <td>
-                        <form action="confirmation_rdv" method="post">
-                            <input type="hidden" name="id_rdv" value="${rdv.id_rdv }">
-                            <input type="date" id="date_rdv" name="date_rdv" required>
-                            <input type="time" id="heure_rdv" name="heure_rdv" required>
-                            <input type="submit" value="fixer">
-                        </form>
+                        <p class="status delivered">Prescription</p>
                     </td>
 <%--                    <td>--%>
 <%--                        <a href="">voir</a>--%>
