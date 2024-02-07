@@ -15,6 +15,7 @@
                     justify-content: center;
                     width: 100%;
                     height: 100vh; /* Utilise toute la hauteur de la fenêtre */
+                    flex: 1;
                 }
 
                 form {
@@ -81,7 +82,7 @@
                 <jsp:include page="/WEB-INF/navbarpatient.jsp" />
             </c:when>
         </c:choose>
-                <div class="center-container" >
+                <div class="center-container"  >
 
                     <c:if test="${sessionScope.utilisateur ne null}">
                     <h2 >Modifier/Supprimer le Profil</h2>

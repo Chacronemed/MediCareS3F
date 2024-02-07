@@ -102,6 +102,10 @@
     <servlet-mapping>
         <servlet-name>affiche_prescription</servlet-name>
         <url-pattern>/affiche_prescription</url-pattern>
+    </servlet-mapping>
+
+    <!-- Cette partie doit être séparée correctement -->
+    <servlet>
         <display-name>rdvspatient</display-name>
         <servlet-name>rdvspatient</servlet-name>
         <servlet-class>servlets.rdvspatient</servlet-class>
@@ -109,5 +113,16 @@
     <servlet-mapping>
         <servlet-name>rdvspatient</servlet-name>
         <url-pattern>/rdvspatient</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <description></description>
+        <display-name>logout</display-name>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>servlets.logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 </web-app>

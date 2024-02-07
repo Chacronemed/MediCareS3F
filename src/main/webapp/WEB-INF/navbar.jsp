@@ -48,7 +48,7 @@
           <span class="nav-item">gestion du compte</span>
         </a>
         </li>
-        <li><a href="#" class="logout">
+        <li id="logout-link"><a href="#" class="logout">
           <i class="fas fa-sign-out-alt"></i>
           <span class="nav-item">Log out</span>
         </a></li>
@@ -96,6 +96,14 @@ document.getElementById('settings-link').addEventListener('click', function() {
   input.value = '${sessionScope.utilisateur.id_utilisateur}';
 
   form.appendChild(input)
+  document.body.appendChild(form);
+  form.submit();
+});
+document.getElementById('logout-link').addEventListener('click', function() {
+  var form = document.createElement('form');
+  form.method = 'get';
+  form.action = 'logout';
+
   document.body.appendChild(form);
   form.submit();
 });
