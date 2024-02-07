@@ -16,6 +16,7 @@
     <p><strong>Email:</strong> ${sessionScope.utilisateur.email}</p>
     <p><strong>Type:</strong> ${sessionScope.utilisateur.type}</p>
     <p><strong>Numéro de téléphone:</strong> ${sessionScope.utilisateur.num_tel}</p>
+    <p><strong>Path:</strong> ${sessionScope.utilisateur.imageLink}</p>
     
     <c:if test="${sessionScope.utilisateur.sexe eq 'M'}">
         <p><strong>Sexe:</strong> Masculin</p>

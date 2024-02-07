@@ -43,9 +43,9 @@
           <i class='fas bx bxs-calendar'></i>
           <span class="nav-item">Prendre un RDV</span>
         </a></li>
-        <li id="prescription-link"><a href="#">
+        <li id="dossier-link"><a href="#">
           <i class='fas bx bxs-book-content'></i>
-          <span class="nav-item">Prescriptions</span>
+          <span class="nav-item">Mon dossier medicales</span>
         </a></li>
         <li id="settings-link"><a href="#">
           <i class="fas fa-solid fa-gears"></i>
@@ -75,10 +75,10 @@ document.getElementById('rdv-link').addEventListener('click', function() {
     document.body.appendChild(form);
     form.submit();
 });
-document.getElementById('prescription-link').addEventListener('click', function() {
+document.getElementById('dossier-link').addEventListener('click', function() {
     var form = document.createElement('form');
     form.method = 'get';
-    form.action = 'prescriptions';
+    form.action = 'dossiermedical';
 
     var input = document.createElement('input');
     input.type = 'hidden';

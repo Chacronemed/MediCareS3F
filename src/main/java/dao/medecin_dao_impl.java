@@ -101,12 +101,13 @@ public class medecin_dao_impl implements medecin_dao{
 	        preparedStatementMedecins.executeUpdate();
 	        
 	        // Mise à jour de la table utilisateurs
-	        preparedStatementUtilisateurs = connexion.prepareStatement("UPDATE utilisateurs SET nom = ?, prenom = ?, email = ?, num_tel = ? WHERE id_utilisateur = ?");
+	        preparedStatementUtilisateurs = connexion.prepareStatement("UPDATE utilisateurs SET nom = ?, prenom = ?, email = ?, num_tel = ? , image_link = ? WHERE id_utilisateur = ?");
 	        preparedStatementUtilisateurs.setString(1, medecin.getNom());
 	        preparedStatementUtilisateurs.setString(2, medecin.getPrenom());
 	        preparedStatementUtilisateurs.setString(3, medecin.getEmail());
 	        preparedStatementUtilisateurs.setString(4, medecin.getNum_tel());
-	        preparedStatementUtilisateurs.setInt(5, medecin.getId_utilisateur());
+			preparedStatementUtilisateurs.setString(5, medecin.getImageLink());
+	        preparedStatementUtilisateurs.setInt(6, medecin.getId_utilisateur());
 	        preparedStatementUtilisateurs.executeUpdate();
 
 	        // Commit de la transaction

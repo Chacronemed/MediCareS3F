@@ -106,6 +106,7 @@ public class utilisateur_dao_impl implements utilisateur_dao{
 		            user.setSexe(resultSet.getString("sexe"));
 		            user.setType(resultSet.getString("type")); 
 		            user.setNum_tel(resultSet.getString("num_tel"));
+
 		            String patientQuery = "SELECT * FROM patients WHERE id_utilisateur = ?";
 	                try (PreparedStatement patientStatement = connexion.prepareStatement(patientQuery)) {
 	                    patientStatement.setInt(1, user.getId_utiliseur());
@@ -131,6 +132,7 @@ public class utilisateur_dao_impl implements utilisateur_dao{
 		            user.setSexe(resultSet.getString("sexe"));
 		            user.setType(resultSet.getString("type")); 
 		            user.setNum_tel(resultSet.getString("num_tel"));
+					user.setImageLink(resultSet.getString("image_link"));
 	        		String medecinQuery = "SELECT * FROM medecins WHERE id_utilisateur = ?";
 	                try (PreparedStatement medecinStatement = connexion.prepareStatement(medecinQuery)) {
 	                    medecinStatement.setInt(1, user.getId_utiliseur());

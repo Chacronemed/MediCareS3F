@@ -72,10 +72,26 @@
                 }
 
             </style>
+            <script>
+                function previewImage() {
+                    var input = document.getElementById('image');
+                    var preview = document.getElementById('imagePreview');
+                    var file = input.files[0];
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            </script>
         </head>
         <body>
+
         <div><c:choose>
-            <c:when test="${sessionScope.utilisateur.type == 'medecine'}">
+            <c:when test="${sessionScope.utilisateur.type == 'medecin'}">
                 <jsp:include page="/WEB-INF/navbar.jsp" />
             </c:when>
             <c:when test="${sessionScope.utilisateur.type == 'patient'}">
@@ -86,7 +102,7 @@
 
                     <c:if test="${sessionScope.utilisateur ne null}">
                     <h2 >Modifier/Supprimer le Profil</h2>
-                        <form action="gestion_utilisateur" method="post">
+                        <form action="gestion_utilisateur" method="post" enctype="multipart/form-data" >
                             <input type="hidden" name="id" value="${sessionScope.utilisateur.id_utilisateur}">
                             <input type="hidden" name="type" value="${sessionScope.utilisateur.type}">
                             <p><label for="nom">Nom:</label><input type="text" id="nom" name="nom" value="${sessionScope.utilisateur.nom}"></p>
@@ -96,12 +112,24 @@
                             <c:if test="${sessionScope.utilisateur.type eq 'medecin'}">
                                 <p><label for="specialite">Spécialité:</label><input type="text" id="specialite" name="specialite" value="${sessionScope.utilisateur.specialite}"></p>
                                 <p><label for="adresse">Adresse:</label><input type="text" id="adresse" name="adresse" value="${sessionScope.utilisateur.adresse}"></p>
+                                <div class="form-group">
+                                    <div class="mb-3">
+                                        <label for="image" class="form-label">Image:</label>
+                                        <input class="form-control" type="file" id="image" name="image" accept="image/*" required onchange="previewImage()"/>
+                                    </div>
+
+                                    <br>
+
+                                    <img id="imagePreview" src="#" alt="Aper?u de l'image" style="display: none; max-height: 200px; max-width: 200px;">
+                                    <br>
+                                </div>
                             </c:if>
                             <c:if test="${sessionScope.utilisateur.type eq 'patient'}">
                                 <p><label for="contact_urgence">Contact d'urgence:</label><input type="text" id="contact_urgence" name="contact_urgence" value="${sessionScope.utilisateur.contact_urgence}"></p>
                             </c:if>
+
                             <p class="buttons">
-                                <input type="submit" name="action" value="Enregistrer les modifications">
+                                <input type="submit" name="action" value="Enregistrer les modification">
                                 <input type="submit" name="action" value="Supprimer le profil">
                             </p>
                         </form>

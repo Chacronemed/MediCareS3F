@@ -11,6 +11,15 @@ public class utilisateur {
     private String num_tel;
     private String type;
     private String sexe;
+    private String imageLink;
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
 
     public String getSexe() {
         return sexe;

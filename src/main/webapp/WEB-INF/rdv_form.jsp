@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Fixer un rendez-vous</title>
+    <link rel="stylesheet" href="assets/css/TableauCSS.css" type="text/css">
      <style>
          h1 {
              text-align: center;
@@ -30,7 +31,6 @@
          th, td {
              padding: 10px;
              text-align: left;
-             border-bottom: 1px solid #ddd;
          }
 
          th {
@@ -62,7 +62,6 @@
              width: 100%;
              padding: 10px;
              margin-bottom: 15px;
-             border: 1px solid #ddd;
              border-radius: 4px;
              box-sizing: border-box; /* Adds padding without increasing the width */
          }
@@ -104,36 +103,49 @@
     <c:if test="${sessionScope.utilisateur ne null}">
 
     <form action="fixer_rdv" method="post">
-    
-    	<div class="doctor-list">
-        <table border="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Spécialité</th>
-                <th>Adresse</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="medecin" items="${listeMedecins}">
-                <tr>
-                    <td>${medecin.id_medecin}</td>
-                    <td>${medecin.nom}</td>
-                    <td>${medecin.prenom}</td>
-                    <td>${medecin.email}</td>
-                    <td>${medecin.specialite}</td>
-                    <td>${medecin.adresse}</td>
-                    <td>
-                    	<input type="radio" name="choix_med" value="${medecin.id_medecin}">
-                    </td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    	</div>
+        <div class="right-table">
+            <section class="table__header">
+                <h1>Traitements Prescrits</h1>
+                <div class="input-group">
+                    <input type="search" placeholder="Search Data...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </section>
+            <section class="table__body">
+                <table>
+                    <thead>
+                    <tr>
+                        <th> ID <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Nom <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Prénom<span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Email<span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Spécialité<span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Adresse<span class="icon-arrow">&UpArrow;</span></th>
+                        <th></th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="medecin" items="${listeMedecins}">
+                        <tr>
+                            <td>${medecin.id_medecin}</td>
+                            <td>${medecin.nom}</td>
+                            <td>${medecin.prenom}</td>
+                            <td>${medecin.email}</td>
+                            <td>${medecin.specialite}</td>
+                            <td>${medecin.adresse}</td>
+                            <td>
+                                <input type="radio" name="choix_med" value="${medecin.id_medecin}">
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    <!--/******************************************************/-->
+
     	<input type="hidden" name="id" value="${sessionScope.utilisateur.id_utilisateur}">
         <label for="startDate">Date de début de disponibilité :</label>
         <input type="date" id="date_debut" name="date_debut" required><br>
@@ -152,5 +164,6 @@
     </form>
     </c:if>
 </div>
+<script src="assets/JS/TableauJS.js"></script>
 </body>
 </html>

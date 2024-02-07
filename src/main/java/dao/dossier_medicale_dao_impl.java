@@ -1,9 +1,8 @@
 package dao;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import beans.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class dossier_medicale_dao_impl implements dossier_medicale_dao{
 	
@@ -48,6 +47,46 @@ public class dossier_medicale_dao_impl implements dossier_medicale_dao{
         }
 
         return -1; // Retourner -1 en cas d'échec
+    }
+
+    public List<maladie> listerMaladiesParPatient(int id_patient) {
+        List<maladie> maladies = new ArrayList<>();
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        // Requête SQL pour récupérer les maladies d'un patient spécifique
+        String query = "SELECT m.nom, m.description, m.date_maladie FROM maladies m " +
+                       "JOIN dossier_medicale dm ON m.id_dossier_medicale = dm.id_dossier_medicale " +
+                       "WHERE dm.id_patient = ?;";
+
+        try {
+            connexion = dao_factory.getConnection();
+            preparedStatement = connexion.prepareStatement(query);
+            preparedStatement.setInt(1, id_patient);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String nom = resultSet.getString("nom");
+                String description = resultSet.getString("description");
+                Date dateMaladie = resultSet.getDate("date_maladie");
+
+                maladie maladie = new maladie();
+                maladie.setNom(nom);
+                maladie.setDescription(description);
+                maladie.setDate_maladie(dateMaladie);
+                maladies.add(maladie);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Gérer l'exception de manière appropriée
+        } finally {
+            // Fermer les ressources
+            if (resultSet != null) try { resultSet.close(); } catch (SQLException e) { /* Gérer l'exception */ }
+            if (preparedStatement != null) try { preparedStatement.close(); } catch (SQLException e) { /* Gérer l'exception */ }
+            if (connexion != null) try { connexion.close(); } catch (SQLException e) { /* Gérer l'exception */ }
+        }
+
+        return maladies;
     }
 
 }

@@ -28,7 +28,11 @@
     <nav>
       <ul>
         <li><a href="#" class="logo">
-          <img src="./pic/logo.jpg">
+
+
+
+
+          <img src="${sessionScope.utilisateur.imageLink}" alt="Image de conseiller" >
           <span class="nav-item">${sessionScope.utilisateur.prenom} ${sessionScope.utilisateur.nom}</span>
         </a></li>
         <li><a href="Dashboard">

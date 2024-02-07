@@ -5,38 +5,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Profil Utilisateur</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="assets/css/dashboard.css" type="text/css">
+    <style>
+        #myChart {
+            max-height: 350px;
+        }
+    </style>
 </head>
 <body>
 <%@include file="/WEB-INF/navbarpatient.jsp" %>
-<section class="main" style="flex: 1">
+<section class="main">
     <div class="main-top">
         <h1>Attendance</h1>
         <i class="fas fa-user-cog"></i>
     </div>
-    <div class="users">
-        <div class="card">
-            <img src="assets/images/prescription.png">
-            <h4>Vous avez ecris</h4>
+    <div class="users" >
+        <div class="card" style="flex: 1;">
+            <img src="assets/images/calendrier8.png">
+            <h4>Vous avez Aujourd'hui</h4>
             <div class="per">
                 <table>
                     <tr>
-                        <td><span>85</span></td>
+                        <td><span>1</span></td>
                     </tr>
                     <tr>
-                        <td>ligne de traitement</td>
+                        <td>Rendez-vous</td>
                     </tr>
                 </table>
             </div>
-            <button>consulter</button>
         </div>
+        <div class="card" style="flex: 1;">
+            <img src="assets/images/programme.png">
+            <h4>Vous devez prendre </h4>
+            <div class="per">
+                <table>
+                    <tr>
+                        <td><span>2</span></td>
+                    </tr>
+                    <tr>
+                        <td>medicament</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
     </div>
+
+    <section class="attendance">
+        <div class="attendance-list">
+            <h1>prise de medicament</h1>
+            <canvas id="myChart" ></canvas>
+        </div>
+    </section>
 </section>
 </div>
 <c:if test="${sessionScope.utilisateur ne null}">
     <h2>Profil de ${sessionScope.utilisateur.prenom} ${sessionScope.utilisateur.nom}</h2>
-    <p> total ${sessionScope.utilisateur.id_utilisateur}</p>
+    <p> totalooos ${sessionScope.utilisateur.id_utilisateur}</p>
     <p><strong>Nom:</strong> ${sessionScope.utilisateur.nom}</p>
     <p><strong>Prénom:</strong> ${sessionScope.utilisateur.prenom}</p>
     <p><strong>Email:</strong> ${sessionScope.utilisateur.email}</p>
@@ -75,5 +101,30 @@
         <input type="submit" value="consulter rendez-vous">
     </form>
 </c:if>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line', // Change this from 'bar' to 'line'
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'nombre de medicaments prise',
+                data: [12, 19, 3, 5, 2, 3, 8],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)', // For a line chart, a single color or gradient could be more suitable
+                borderColor: 'rgba(54, 162, 235, 1)', // The color of the line
+                borderWidth: 2,
+                fill: false // Specify if the area under the line should be filled
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
 </body>
 </html>

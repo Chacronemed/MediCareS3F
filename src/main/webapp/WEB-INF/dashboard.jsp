@@ -45,7 +45,7 @@ document.getElementById('myButton').addEventListener('click', function() {
 </script>
   <%@include file="/WEB-INF/navbar.jsp" %>
 
-    <section class="main">
+    <section class="main" style="flex: 1">
       <div class="main-top">
         <h1>Attendance</h1>
         <i class="fas fa-user-cog"></i>

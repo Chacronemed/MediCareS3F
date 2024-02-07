@@ -14,31 +14,35 @@
     <title>Affichage des prescriptions</title>
 </head>
 <body>
-<h2>Liste des prescriptions</h2>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Nom de la maladie</th>
-        <th>Description</th>
-        <th>Remarque</th>
-        <th>Nom du médicament</th>
-        <th>Dose</th>
-        <!-- Ajoutez les autres colonnes ici -->
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${list_pres}" var="prescription">
+
+<%@include file="/WEB-INF/navbar.jsp" %>
+<div>
+    <h2>Liste des prescriptions</h2>
+    <table border="1">
+        <thead>
         <tr>
-            <td>${prescription.nom}</td>
-            <td>${prescription.description}</td>
-            <td>${prescription.remarque}</td>
-            <td>${prescription.nom_medicament}</td>
-            <td>${prescription.dose}</td>
+            <th>Nom de la maladie</th>
+            <th>Description</th>
+            <th>Remarque</th>
+            <th>Nom du médicament</th>
+            <th>Dose</th>
             <!-- Ajoutez les autres colonnes ici -->
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach items="${list_pres}" var="prescription">
+            <tr>
+                <td>${prescription.nom}</td>
+                <td>${prescription.description}</td>
+                <td>${prescription.remarque}</td>
+                <td>${prescription.nom_medicament}</td>
+                <td>${prescription.dose}</td>
+                <!-- Ajoutez les autres colonnes ici -->
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
 
