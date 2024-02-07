@@ -2,6 +2,7 @@ package dao;
 
 import beans.ligne_traitement;
 import beans.maladie;
+import beans.prescription;
 import beans.traitementBean;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface prescription_dao {
     public int  get_id_dossier_medicale(int id_patient);
     public int get_count_prescription(int id_med);
     public int get_count_soigne(int id_med);
+    public List<prescription> get_prescription(int id_rdv);
 
 }

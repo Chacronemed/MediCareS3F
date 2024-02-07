@@ -59,7 +59,7 @@
                 <td><%= traitement.getRemarque() %></td>
                 <td><%= traitement.getDate_traitement() %></td>
                 <td>
-                    <p class="status delivered">Prescription</p>
+                    <a href="http://localhost:8080/MediCare_war_exploded/affiche_prescription?id_rdv=<%=traitement.getId_rdv()%>"><p class="status delivered">Prescription</p></a>
                     <%--            <p class="status cancelled">Cancelled</p> rouge--%>
                     <%--            <p class="status shipped">Shipped</p> Orange--%>
                 </td>

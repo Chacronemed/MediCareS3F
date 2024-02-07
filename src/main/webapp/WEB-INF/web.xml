@@ -92,4 +92,14 @@
         <servlet-name>confirmation_rdv</servlet-name>
         <url-pattern>/confirmation_rdv</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>affiche_prescription</display-name>
+        <servlet-name>affiche_prescription</servlet-name>
+        <servlet-class>servlets.affiche_prescription</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>affiche_prescription</servlet-name>
+        <url-pattern>/affiche_prescription</url-pattern>
+    </servlet-mapping>
 </web-app>
