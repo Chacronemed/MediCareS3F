@@ -1,8 +1,6 @@
 package dao;
 
-import beans.ligne_traitement;
-import beans.maladie;
-import beans.traitementBean;
+import beans.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,13 +17,14 @@ public class prescription_dao_impl implements prescription_dao{
     }
     @Override
     public void ajouterPrescription(maladie maladie, traitementBean traitement, List<ligne_traitement> lignesTraitement, int id_rdv, int id_dossier_medicale) {
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         try {
             connection = dao_factory.getConnection();
             connection.setAutoCommit(false);
+
             // Insérer la maladie
             String queryMaladie = "INSERT INTO maladies (nom, description, date_maladie, id_dossier_medicale) VALUES (?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(queryMaladie, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -35,20 +34,33 @@ public class prescription_dao_impl implements prescription_dao{
             preparedStatement.setInt(4, id_dossier_medicale);
             preparedStatement.executeUpdate();
 
+            // Récupérer l'id de la maladie généré
+            resultSet = preparedStatement.getGeneratedKeys();
+            int id_maladie = -1;
+            if (resultSet.next()) {
+                id_maladie = resultSet.getInt(1);
+            }
+
             // Insérer le traitement
             String queryTraitement = "INSERT INTO traitements (remarque, date_traitements, id_rdv) VALUES (?, ?, ?)";
-            preparedStatement = connection.prepareStatement(queryTraitement);
+            preparedStatement = connection.prepareStatement(queryTraitement, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, traitement.getRemarque());
             preparedStatement.setDate(2, traitement.getDate_traitement());
             preparedStatement.setInt(3, id_rdv);
             preparedStatement.executeUpdate();
 
-            // Insérer les lignes de traitemet
+            // Récupérer l'id du traitement généré
+            resultSet = preparedStatement.getGeneratedKeys();
+            int id_traitement = -1;
+            if (resultSet.next()) {
+                id_traitement = resultSet.getInt(1);
+            }
 
+            // Insérer les lignes de traitement
+            String queryLigneTraitement = "INSERT INTO ligne_traitement (id_traitement, nom_medicament, dose, quantite, frequence, duree) VALUES (?, ?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(queryLigneTraitement);
             for (ligne_traitement ligne : lignesTraitement) {
-                String queryLigneTraitement = "INSERT INTO ligne_traitement (id_traitement, nom_medicament, dose, quantite, frequence, duree) VALUES (?, ?, ?, ?, ?, ?)";
-                preparedStatement = connection.prepareStatement(queryLigneTraitement);
-                preparedStatement.setInt(1, 2);
+                preparedStatement.setInt(1, id_traitement);
                 preparedStatement.setString(2, ligne.getNom_medicament());
                 preparedStatement.setFloat(3, ligne.getDose());
                 preparedStatement.setFloat(4, ligne.getQuantite());
@@ -56,12 +68,11 @@ public class prescription_dao_impl implements prescription_dao{
                 preparedStatement.setInt(6, ligne.getDuree());
                 preparedStatement.executeUpdate();
             }
+
             connection.commit();
         } catch (SQLException e) {
-            // Gérer les erreurs de base de données
             e.printStackTrace();
             try {
-                // En cas d'erreur, annuler la transaction
                 if (connection != null) {
                     connection.rollback();
                 }
@@ -69,8 +80,13 @@ public class prescription_dao_impl implements prescription_dao{
                 ex.printStackTrace();
             }
         } finally {
-            // Fermer la connexion
             try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
                 if (connection != null) {
                     connection.close();
                 }
@@ -79,6 +95,7 @@ public class prescription_dao_impl implements prescription_dao{
             }
         }
     }
+
 
     public void updateMaladie(maladie maladie, traitementBean traitement, List<ligne_traitement> lignesTraitement){
 
@@ -261,6 +278,56 @@ public class prescription_dao_impl implements prescription_dao{
 
 
         return nombre;
+    }
+
+    public List<prescription> get_prescription(int id_rdv)
+    {
+        List<prescription> list_pres = new ArrayList<>();
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String query = "SELECT t.*, m.*, lt.* FROM traitements t\n INNER JOIN ligne_traitement lt ON t.id_traitement = lt.id_traitement INNER JOIN maladies m ON m.id_dossier_medicale = ( SELECT dm.id_dossier_medicale FROM dossier_medicale dm INNER JOIN rendez_vous rv ON dm.id_patient = rv.id_patient WHERE rv.id_rdv = t.id_rdv LIMIT 1) WHERE t.id_rdv = ? AND m.date_maladie = t.date_traitements;";
+        try {
+            connexion = dao_factory.getConnection();
+            preparedStatement = connexion.prepareStatement(query);
+            preparedStatement.setInt(1, id_rdv);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String nom = resultSet.getString("nom");
+                String description = resultSet.getString("description");
+                String remarque = resultSet.getString("remarque");
+                String nom_medicament = resultSet.getString("nom_medicament");
+
+                prescription prescription = new prescription();
+
+                prescription.setNom(nom);
+                prescription.setDescription(description);
+                prescription.setRemarque(remarque);
+                prescription.setNom_medicament(nom_medicament);
+                prescription.setDate_maladie(resultSet.getDate("date_maladie"));
+                prescription.setId_rdv(resultSet.getInt("id_rdv"));
+                prescription.setDose(resultSet.getFloat("dose"));
+                prescription.setQuantite(resultSet.getFloat("quantite"));
+                prescription.setFrequence(resultSet.getInt("frequence"));
+                prescription.setDuree(resultSet.getInt("duree"));
+                prescription.setId_traitement(resultSet.getInt("id_traitement"));
+                list_pres.add(prescription);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connexion != null) connexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return list_pres;
     }
 
 }
