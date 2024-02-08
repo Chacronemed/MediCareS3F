@@ -4,7 +4,7 @@
         <html>
         <head>
             <meta charset="UTF-8">
-            <title>Modifier/Supprimer le Profil</title>
+            <title>prise de medicament</title>
             <style>
 
 
@@ -70,6 +70,30 @@
                     justify-content: center; /* Centre les boutons */
                     padding-top: 20px; /* Ajoutez un peu d'espace au-dessus des boutons */
                 }
+                .input-field {
+                    flex: 1; /* Allows the input to fill the space */
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    margin-bottom: 10px; /* Space between the inputs */
+                }
+
+                /* Additional styling for submit button to match the input fields */
+                .submit-button {
+                    padding: 10px 15px;
+                    background-color: #5cb85c;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    margin-top: 10px;
+                    transition: background-color 0.3s;
+                }
+
+                .submit-button:hover {
+                    background-color: #4cae4c;
+                }
+
 
             </style>
             <script>
@@ -102,35 +126,19 @@
 
                     <c:if test="${sessionScope.utilisateur ne null}">
                     <h2 >Gestion de Profil</h2>
-                        <form action="gestion_utilisateur" method="post" enctype="multipart/form-data" >
+                        <form action="toDashboard" method="get" >
                             <input type="hidden" name="id" value="${sessionScope.utilisateur.id_utilisateur}">
                             <input type="hidden" name="type" value="${sessionScope.utilisateur.type}">
-                            <p><label for="nom">Nom:</label><input type="text" id="nom" name="nom" value="${sessionScope.utilisateur.nom}"></p>
-                            <p><label for="prenom">Prénom:</label><input type="text" id="prenom" name="prenom" value="${sessionScope.utilisateur.prenom}"></p>
-                            <p><label for="email">Email:</label><input type="text" id="email" name="email" value="${sessionScope.utilisateur.email}"></p>
-                            <p><label for="numTel">Numéro de téléphone:</label><input type="text" id="numTel" name="numTel" value="${sessionScope.utilisateur.num_tel}"></p>
-                            <c:if test="${sessionScope.utilisateur.type eq 'medecin'}">
-                                <p><label for="specialite">Spécialité:</label><input type="text" id="specialite" name="specialite" value="${sessionScope.utilisateur.specialite}"></p>
-                                <p><label for="adresse">Adresse:</label><input type="text" id="adresse" name="adresse" value="${sessionScope.utilisateur.adresse}"></p>
-                                <div class="form-group">
-                                    <div class="mb-3">
-                                        <label for="image" class="form-label">Image:</label>
-                                        <input class="form-control" type="file" id="image" name="image" accept="image/*" required onchange="previewImage()"/>
-                                    </div>
-
-                                    <br>
-
-                                    <img id="imagePreview" src="#" alt="Aper?u de l'image" style="display: none; max-height: 200px; max-width: 200px;">
-                                    <br>
-                                </div>
-                            </c:if>
-                            <c:if test="${sessionScope.utilisateur.type eq 'patient'}">
-                                <p><label for="contact_urgence">Contact d'urgence:</label><input type="text" id="contact_urgence" name="contact_urgence" value="${sessionScope.utilisateur.contact_urgence}"></p>
-                            </c:if>
-
+                            <p>
+                                <label for="datePrise">Date de prise :</label>
+                                <input type="date" id="datePrise" name="datePrise" class="input-field">
+                            </p>
+                            <p>
+                                <label for="heurePrise">Heure de prise :</label>
+                                <input type="time" id="heurePrise" name="heurePrise" class="input-field">
+                            </p>
                             <p class="buttons">
-                                <input type="submit" name="action" value="Enregistrer les modification">
-                                <input type="submit" name="action" value="Supprimer le profil">
+                                <input type="submit" name="action" value="Enregistrer la prise" class="submit-button">
                             </p>
                         </form>
                 </c:if>

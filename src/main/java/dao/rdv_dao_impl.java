@@ -89,6 +89,47 @@ public class rdv_dao_impl implements rdv_dao{
 
 		return rendezVousAujourdhui;
 	}
+	public List<rdv> getpatientRDV(int id_patient){
+		List<rdv> rendezVous = new ArrayList<>();
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connexion = dao_factory.getConnection();
+
+			String query = "SELECT * FROM rendez_vous WHERE id_med = ?;";
+
+			preparedStatement = connexion.prepareStatement(query);
+			preparedStatement.setInt(	1, id_patient);
+			resultSet = preparedStatement.executeQuery();
+			if (!resultSet.isBeforeFirst()) {
+				System.out.println("RDV_Dao_Impl : No data found for rdv of patient ID: " + id_patient);
+			} else {
+				while (resultSet.next()) {
+					rdv rdv = new rdv();
+					rdv.setId_rdv(resultSet.getInt("id_rdv"));
+					rdv.setId_patient(id_patient);
+					rdv.setId_patient(resultSet.getInt("id_med"));
+					rdv.setDate_debut(resultSet.getDate("date_debut"));
+					rdv.setDate_fin(resultSet.getDate("date_fin"));
+					rdv.setHeure_debut(resultSet.getString("heure_debut"));
+					rdv.setHeure_fin(resultSet.getString("heure_fin"));
+					rdv.setDate_rdv(resultSet.getDate("date_rdv"));
+					rdv.setHeure(resultSet.getString("heure"));
+					rdv.setRemarque(resultSet.getString("remarque"));
+					rendezVous.add(rdv);
+					rdv.toString();
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		}
+
+		return rendezVous;
+	}
 	
 	
 	public List<rdv> getRdvMedecin(int id_medecin) {

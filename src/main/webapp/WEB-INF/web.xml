@@ -125,4 +125,34 @@
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>traitementPatient</display-name>
+        <servlet-name>traitementPatient</servlet-name>
+        <servlet-class>servlets.traitementPatient</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>traitementPatient</servlet-name>
+        <url-pattern>/traitementPatient</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>suivie</display-name>
+        <servlet-name>suivie</servlet-name>
+        <servlet-class>servlets.suivie</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>suivie</servlet-name>
+        <url-pattern>/suivie</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description></description>
+        <display-name>toDashboard</display-name>
+        <servlet-name>toDashboard</servlet-name>
+        <servlet-class>servlets.toDashboard</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>toDashboard</servlet-name>
+        <url-pattern>/toDashboard</url-pattern>
+    </servlet-mapping>
 </web-app>

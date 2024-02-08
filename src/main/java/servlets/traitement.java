@@ -80,6 +80,6 @@ public class traitement extends HttpServlet {
         prescriptionDAO.ajouterPrescription(maladie, traitement, lignesTraitement, id_rdv, id_dossier_medicale);
 
         // Rediriger vers une page de confirmation
-        response.sendRedirect("confirmation.jsp");
+        response.sendRedirect("Dashboard");
     }
 }

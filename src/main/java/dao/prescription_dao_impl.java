@@ -330,6 +330,8 @@ public class prescription_dao_impl implements prescription_dao{
         return list_pres;
     }
 
+
+
 }
 
 //public List<traitementBean> ()

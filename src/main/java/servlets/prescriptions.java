@@ -24,7 +24,6 @@ public class prescriptions extends HttpServlet {
         rdv_dao RdvDao = daoFactory.get_rdv_dao();
 
         int idMedecin = Integer.parseInt(request.getParameter("id")); // Cet ID devrait être récupéré de manière appropriée, par exemple via une session
-        System.out.println("gggggg" +idMedecin);
         List<Integer> rdvsAcceptes = PrescriptionDao.getRendezVousAcceptesParMedecin(idMedecin);
         System.out.println(rdvsAcceptes);
         Map<traitementBean, String> traitementsInfo = new HashMap<>();
